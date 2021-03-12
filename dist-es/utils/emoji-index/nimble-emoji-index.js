@@ -5,21 +5,31 @@ import { uncompress } from '../data';
 import store from '../store';
 
 var NimbleEmojiIndex = /*#__PURE__*/function () {
-  function NimbleEmojiIndex(data, set) {
+  function NimbleEmojiIndex(data, set, prebuiltIndex) {
     _classCallCheck(this, NimbleEmojiIndex);
 
     if (data.compressed) {
       uncompress(data);
     }
 
-    this.data = data || {};
-    this.set = set || null;
-    this.originalPool = {};
-    this.index = {};
-    this.emojis = {};
-    this.emoticons = {};
-    this.customEmojisList = [];
-    this.buildIndex();
+    if (prebuiltIndex !== undefined) {
+      this.data = prebuiltIndex.data;
+      this.set = prebuiltIndex.set;
+      this.originalPool = prebuiltIndex.originalPool;
+      this.index = prebuiltIndex.index;
+      this.emojis = prebuiltIndex.emojis;
+      this.emoticons = prebuiltIndex.emoticons;
+      this.customEmojisList = prebuiltIndex.customEmojisList;
+    } else {
+      this.data = data || {};
+      this.set = set || null;
+      this.originalPool = {};
+      this.index = {};
+      this.emojis = {};
+      this.emoticons = {};
+      this.customEmojisList = [];
+      this.buildIndex();
+    }
   }
 
   _createClass(NimbleEmojiIndex, [{
@@ -232,6 +242,19 @@ var NimbleEmojiIndex = /*#__PURE__*/function () {
       }
 
       return results;
+    }
+  }, {
+    key: "printIndex",
+    value: function printIndex() {
+      console.log(JSON.stringify({
+        data: this.data,
+        set: this.set,
+        originalPool: this.originalPool,
+        index: this.index,
+        emojis: this.emojis,
+        emoticons: this.emoticons,
+        customEmojisList: this.customEmojisList
+      }));
     }
   }]);
 

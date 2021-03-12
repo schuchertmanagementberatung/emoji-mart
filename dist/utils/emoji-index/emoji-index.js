@@ -7,11 +7,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
-var _all = _interopRequireDefault(require("../../../data/all.json"));
+var _prebuiltIndexAll = _interopRequireDefault(require("../../../data/prebuilt-index-all.json"));
 
 var _nimbleEmojiIndex = _interopRequireDefault(require("./nimble-emoji-index"));
 
-var emojiIndex = new _nimbleEmojiIndex["default"](_all["default"]);
+// HOW TO GENERATE PREBUILT-INDEX:
+// import indexData from '../../../data/all.json'
+// const emojiIndex = new NimbleEmojiIndex(data);
+// (emojiIndex as any).printIndex();
+var emojiIndex = new _nimbleEmojiIndex["default"]({}, undefined, _prebuiltIndexAll["default"]);
 var emojis = emojiIndex.emojis,
     emoticons = emojiIndex.emoticons;
 

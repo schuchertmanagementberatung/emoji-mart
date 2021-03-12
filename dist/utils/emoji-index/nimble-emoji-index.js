@@ -18,21 +18,31 @@ var _data = require("../data");
 var _store = _interopRequireDefault(require("../store"));
 
 var NimbleEmojiIndex = /*#__PURE__*/function () {
-  function NimbleEmojiIndex(data, set) {
+  function NimbleEmojiIndex(data, set, prebuiltIndex) {
     (0, _classCallCheck2["default"])(this, NimbleEmojiIndex);
 
     if (data.compressed) {
       (0, _data.uncompress)(data);
     }
 
-    this.data = data || {};
-    this.set = set || null;
-    this.originalPool = {};
-    this.index = {};
-    this.emojis = {};
-    this.emoticons = {};
-    this.customEmojisList = [];
-    this.buildIndex();
+    if (prebuiltIndex !== undefined) {
+      this.data = prebuiltIndex.data;
+      this.set = prebuiltIndex.set;
+      this.originalPool = prebuiltIndex.originalPool;
+      this.index = prebuiltIndex.index;
+      this.emojis = prebuiltIndex.emojis;
+      this.emoticons = prebuiltIndex.emoticons;
+      this.customEmojisList = prebuiltIndex.customEmojisList;
+    } else {
+      this.data = data || {};
+      this.set = set || null;
+      this.originalPool = {};
+      this.index = {};
+      this.emojis = {};
+      this.emoticons = {};
+      this.customEmojisList = [];
+      this.buildIndex();
+    }
   }
 
   (0, _createClass2["default"])(NimbleEmojiIndex, [{
@@ -245,6 +255,19 @@ var NimbleEmojiIndex = /*#__PURE__*/function () {
       }
 
       return results;
+    }
+  }, {
+    key: "printIndex",
+    value: function printIndex() {
+      console.log(JSON.stringify({
+        data: this.data,
+        set: this.set,
+        originalPool: this.originalPool,
+        index: this.index,
+        emojis: this.emojis,
+        emoticons: this.emoticons,
+        customEmojisList: this.customEmojisList
+      }));
     }
   }]);
   return NimbleEmojiIndex;
